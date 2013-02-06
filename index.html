@@ -1,1 +1,45 @@
-Placeholder GitHub Page
+---
+layout: base
+---
+  <h3>PayPal Checkout for Windows 8 Apps</h3>
+
+  <p>Use the PayPal Checkout SDK (Win8XO) to add PayPal checkout functionality to your Windows 8 applications. At its core this SDK is a
+    <a href="http://msdn.microsoft.com/en-us/library/windows/apps/hh441572.aspx">Windows Runtime Component</a>, allowing it to be used by apps
+    written in a variety of languages.
+
+  <h3>Getting Started</h3>
+
+  <h4>Step 1: Configure Your PayPal Account</h4>
+  <p>The SDK processes PayPal transactions through a PayPal Premier or Business account which you'll configure to allow our Merchant account to
+    process Express Checkout transactions on your behalf. This allows simple integration while protecting your API credentials from being exposed.</p>
+  <p>To grant permissions:</p>
+  <ol>
+    <li>Log into your PayPal merchant account.</li>
+    <li>Navigate to <strong>Profile > My Selling Tools</strong> and click <strong>API Access > Update</strong>.</li>
+    <li>Click <em>Option 1: Grant API Permission</em></li>
+    <li>Look up the account <strong>windowsstore_api1.paypal.com</strong> (or <strong>mswin_1352404208_biz_api1.paypal.com</strong> for a <a href="https://developer.paypal.com/">Sandbox</a> account)</li>
+    <li>Once the account is location, check both <em>Use Express Checkout</em> to process payments and <em>Use Express Checkout to process mobile payments</em>,
+     then click OK.</li>
+  </ol>
+  <p>That's it! You're now ready to use the PayPal SDK.</p>
+
+  <p>For more information on granting third-party permissions, refer to the following guides:</p>
+
+  <ul>
+    <li><a href="https://www.x.com/developers/paypal/how-to-guides/how-request-third-party-permissions-using-permissions-service">How to Request Third-Party Permissions Using the Permissions Service</a></li>
+    <li><a href="https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&amp;content_ID=developer/e_howto_api_PermissionsAbout">About the PayPal Permissions Service</a></li>
+  </ul>
+
+  <p><strong>Note:</strong> Use Sandbox test accounts to test your application before placing it into production. For details, see the <a href="https://www.x.com/developers/paypal/documentation-tools/quick-start-guides/paypal sandbox-getting-started-guide">Sandbox Getting Started Guide</a>.</p>
+
+  <h4>Step 2: Install the Visual Studio Extension</h4>
+  <p>Download <strong>PayPal.Checkout.vsix</strong> and double-click it to install. (Note: You may have to restart Visual Studio for the installation to complete.)</p>
+
+  <h4>Step 3: Reference the SDK From Your Project</h4>
+  <ol>
+    <li>In <strong>Solution Explorer</strong>, right-click <strong>References</strong> and select <strong>Add Reference</strong>.</li>
+    <li>Select <strong>Windows > Extensions</strong> in the resulting dialog, check the checkbox next to "PayPal Checkout SDK" and click <strong>OK</strong>.</li>
+  </ol>
+
+  <h4>Step 4: Use the API!</h4>
+  <p>Check out the API references for <a href="csharp.html">C#</a> and <a href="javascript.html">JavaScript</a>.<p>

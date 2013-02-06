@@ -1,0 +1,204 @@
+---
+layout: base
+---
+  <h3>PayPal Checkout C# API</h3>
+
+  <p>The PayPal namespace currently contains the following objects:</p>
+
+  <ul>
+    <li><a href="#buynow">PayPal.Checkout.BuyNow</a> - The PayPal Checkout API</li>
+    <li><a href="#item">PayPal.Checkout.Item</a> - A model object used to describe an item being purchased</li>
+    <li><a href="#itembuilder">PayPal.Checkout.ItemBuilder</a> - The builder used to create an Item</li>
+  </ul>
+
+
+  <h4 id="buynow">PayPal.Checkout.BuyNow object</h4>
+  <p>This is the main PayPal checkout API. You can code against this if you have your own UI control or other mechanism to trigger purchases.</p>
+
+  <h5>Constructor</h5>
+  <table class="listing">
+    <tr>
+      <td><b>BuyNow(String merchantId)</b></td>
+      <td>Creates an instance of the BuyNow object for the provided merchantId.</td>
+    </tr>
+  </table>
+
+  <h5>Events</h5>
+  <table class="listing">
+    <tr>
+      <th><i>Event</i></th>
+      <th><i>Description</i></th>
+      <th><i>event.detail</i></th>
+    </tr>
+    <tr>
+      <td><b>onstart</b></td>
+      <td>Occurs when a transaction is initiated.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onauth</b></td>
+      <td>Occurs when an authorization is triggered (e.g. WAB is displayed).</td>
+      <td>TBD</td>
+    </td>
+    <tr>
+      <td><b>oncancel</b></td>
+      <td>Occurs when a user cancels the transaction.<br>
+      <b>Note:</b> <i>complete</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>oncomplete</b></td>
+      <td>Occurs when a user successfully completes a transaction.<br>
+      <b>Note:</b> <i>cancel</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onerror</b></td>
+      <td>Occurs when a transaction is unable to be completed due to an error.<br>
+      <b>Note:</b> <i>cancel</i> and <i>complete</i> will not fire.</td>
+      <td>Error: message, [status], [code]</td>
+    </tr>
+  </table>
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <td><b>Execute()</b>: undefined</td>
+      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor.</td>
+    </tr>
+    <tr>
+      <td><b>AddItem(PayPal.Checkout.Item item)</b>: undefined</td>
+      <td>Adds a PayPal.Checkout.Item to the current purchase.</td>
+    </tr>
+    <tr>
+      <td><b>AddEventListener(String type, Function handler)</b>: undefined</td>
+      <td>Adds an event listener.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>DispatchEvent(String type, [Object args])</b>: boolean</td>
+      <td>Raises an event of the specified type and with additional properties. Returns true if preventDefault
+      was called on the event, otherwise returns false.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>RemoveEventListener(String type, Function handler)</b>: undefined</td>
+      <td>Removes a listener for the specified event.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx</a></td>
+    </tr>
+  </table>
+
+  <h5>Properties</h5>
+  <table class="listing">
+    <tr>
+      <th><i>Name (Type)</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td><b>merchantId</b> (String)</td>
+      <td>The merchant ID for the current transaction.</td>
+    </tr>
+    <tr>
+      <td><b>displayShipping</b> (Number)</td>
+      <td>(optional, defaults to 0) Indicates how to display shipping options:<br>
+         &nbsp;&nbsp;&nbsp; 0 = Show the shipping address.<br>
+         &nbsp;&nbsp;&nbsp; 1 = Hide the shipping address.<br>
+         &nbsp;&nbsp;&nbsp; 2 = Use the address from the buyers profile if one isn't provided.<br>
+        <br><b>Note:</b> This property is automatically set to 1 for Digital Goods transactions.</td>
+    </tr>
+    <tr>
+      <td><b>confirmedShippingOnly</b> (Boolean)</td>
+      <td>(optional, defaults to false) Set to true if you require the buyer to have a confirmed shipping address.
+        <br><b>Note:</b> This property is automatically set to false for Digital Goods transactions.</td>
+    </tr>
+    <tr>
+      <td><b>currency</b> (String)</td>
+      <td>(optional, defaults to 'USD') Set to the three-character currency code for this purchase.</td>
+    </tr>
+  </table>
+
+
+  <h4 id="item">PayPal.Checkout.Item object</h4>
+  <p>This is an immutable object that describes the item being purchased. It can be created using <a href="#itembuilder">PayPal.Checkout.ItemBuilder</a>.</p>
+
+
+  <h5>Properties</h5>
+  <table class="listing">
+    <tr>
+      <th><i>Name (Type)</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td><b>UseSandbox</b> (bool)</td>
+      <td>Set to true to use the PayPal <a href="https://developer.paypal.com">Sandbox</a> environment, false to use the live PayPal environment. Defaults to false.</td>
+    </tr>
+    <tr>
+      <td><b>name</b> (String)</td>
+      <td>The name of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>description</b> (String)</td>
+      <td>(optional) The description of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>id</b> (String)</td>
+      <td>(optional) The ID of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>price</b> (String)</td>
+      <td>The price of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>tax</b> (String)</td>
+      <td>(optional) The tax on the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>quantity</b> (Number)</td>
+      <td>(optional, defaults to 1) Quantity of this item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>metadata</b> (Object)</td>
+      <td>(optional) Arbitrary data used to describe the item. (e.g. setting "type" to "Digital" will mark this item as a Digital goods purchase.)</td>
+    </tr>
+  </table>
+
+  <h4 id="itembuilder">PayPal.Checkout.ItemBuilder object</h4>
+  <p>This object is a builder used to create item objects.</p>
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <td><b>Name(String name)</b>: ItemBuilder</td>
+      <td>Sets the name of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>Description(String description)</b>: ItemBuilder</td>
+      <td>Sets the description of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>Id(String id)</b>: ItemBuilder</td>
+      <td>Sets the ID of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>Price(String price)</b>: ItemBuilder</td>
+      <td>Sets the price of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>Tax(String tax)</b>: ItemBuilder</td>
+      <td>Sets the tax on the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>Quantity(Number quantity)</b>: ItemBuilder</td>
+      <td>Sets the quantity of this item to be purchased. Defaults to 1.</td>
+    </tr>
+    <tr>
+      <td><b>AddMetadata(String key, String value)</b>: ItemBuilder</td>
+      <td>Adds arbitrary data relating to the item to be purchased.<br>
+      <b>Note:</b> This mainly aids in normalizing APIs and only specific keys are used.<br>
+       For example, setting "type" to "Digital" marks the item as a Digital Goods item.</td>
+    </tr>
+    <tr>
+      <td><b>Build()</b>: Item</td>
+      <td>Builds a PayPal.Checkout.Item object from the provided configuration options.</td>
+    </tr>
+  </table>
