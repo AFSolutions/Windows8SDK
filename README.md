@@ -8,9 +8,9 @@ which offers an in-flow checkout experience in a reduced-display mode.
 You can integrate the PayPal Checkout SDK into your applications using either C# or JavaScript.
 See the following guides for details:
 
-* [Integrating the PayPal Windows 8 Checkout SDK](https://github.paypal.com/pages/ertoth/PayPalCheckoutSDK/)
-* [SDK Reference for JavaScript](https://github.paypal.com/pages/ertoth/PayPalCheckoutSDK/javascript.html)
-* [SDK Reference for C#](https://github.paypal.com/pages/ertoth/PayPalCheckoutSDK/csharp.html)
+* [Integrating the PayPal Windows 8 Checkout SDK](http://paypal.github.com/Windows8SDK/)
+* [SDK Reference for JavaScript](http://paypal.github.com/Windows8SDK/javascript.html)
+* [SDK Reference for C#](http://paypal.github.com/Windows8SDK/csharp.html)
 
 
 **Note**: This SDK is under active development and may change at any time.
@@ -23,7 +23,7 @@ See the following guides for details:
 ##Release History
 
 ###Beta Release
-20130206 - Version 0.1
+201302011 - Version 0.1
 
 This is the initial *Beta* release of the product.
 
