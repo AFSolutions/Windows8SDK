@@ -21,8 +21,8 @@ See the following guides for details:
 * Currently, there are no known issues.
 
 ##Release History
-201302011 - Version 0.1
-201302014 - Version 0.1.1
+- 201302011 - Version 0.1
+- 201302014 - Version 0.1.1
 
 ###Beta Release
 201302014 - Version 0.1.1
