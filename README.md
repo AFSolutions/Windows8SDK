@@ -21,9 +21,11 @@ See the following guides for details:
 * Currently, there are no known issues.
 
 ##Release History
+201302011 - Version 0.1
+201302014 - Version 0.1.1
 
 ###Beta Release
-201302011 - Version 0.1
+201302014 - Version 0.1.1
 
 This is the initial *Beta* release of the product.
 
@@ -37,7 +39,7 @@ In this initial release, all feature are new.
 
 #####Bug Fixes
 
-No fixes to document.
+- Fix issue [#1] (https://github.com/paypal/Windows8SDK/issues/1) - JS API not correctly passing through currency. This issue also included a server fix.
 
 
 
