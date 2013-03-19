@@ -23,10 +23,10 @@ See the following guides for details:
 ##Release History
 20130211 - Version 0.1
 20130214 - Version 0.1.1
-20130319 - Version 0.1.2
+20130319 - Version 0.1.3
 
 ###Beta Release
-20130319 - Version 0.1.2
+20130319 - Version 0.1.3
 
 This is the initial *Beta* release of the product.
 
