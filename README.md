@@ -24,9 +24,10 @@ See the following guides for details:
 - 20130211 - Version 0.1
 - 20130214 - Version 0.1.1
 - 20130319 - Version 0.1.3
+- 20130403 - Version 0.1.4
 
 ###Beta Release
-20130319 - Version 0.1.3
+20130403 - Version 0.1.4
 
 This is the initial *Beta* release of the product.
 
@@ -39,9 +40,11 @@ These will be removed from the Beta release section once a secondary version is 
 In this initial release, all feature are new.
 
 #####Bug Fixes
-
-- Fix issue with incorrect tax calculations.
-- Fix issue [#1] (https://github.com/paypal/Windows8SDK/issues/1) - JS API not correctly passing through currency. This issue also included a server fix.
+- Fix default quantity bug [#11] (https://github.com/paypal/Windows8SDK/issues/11)
+- Fix tax calculation bug [#9] (https://github.com/paypal/Windows8SDK/issues/9).
+- Add IPN URL support [#4] (https://github.com/paypal/Windows8SDK/issues/4).
+- Add Custom field support [#2] (https://github.com/paypal/Windows8SDK/issues/2).
+- Add payerId event arg upon successful transaction.
 
 
 
