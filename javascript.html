@@ -1,0 +1,537 @@
+---
+layout: base
+---
+
+  <h3>PayPal Checkout JavaScript API</h3>
+
+  <p>JavaScript/HTML applications can decorate their markup to easily integrate the UI Control, or programmatically instrument their applciation using the API below.</p>
+
+  <p>The PayPal namespace currently contains the following objects:</p>
+
+  <ul>
+    <li><a href="#ui-buynow">PayPalJS.UI.BuyNow</a> - The WinJS UI Control</li>
+    <li><a href="#buynow">PayPal.Checkout.BuyNow</a> - The PayPal Checkout API</li>
+    <li><a href="#item">PayPal.Checkout.Item</a> - A model object used to describe an item being purchased</li>
+    <li><a href="#itembuilder">PayPal.Checkout.ItemBuilder</a> - The builder used to create an Item</li>
+    <li><a href="#config">PayPalJS.config</a> - A utility for managing PayPal configuration</li>
+  </ul>
+
+  <h4 id="ui-buynow">PayPalJS.UI.BuyNow object</h4>
+  <p>This object is a custom WinJS control that enables developers to perform PayPal checkout transactions. To begin, include the paypal.js
+    file in your application. This makes the PayPalJS namespace available to your application.</p>
+
+  {% highlight html %}<script src="ms-appx://PayPal.Checkout/js/paypal.js"></script>{% endhighlight %}
+
+  <p>To use the control declaratively, just decorate your element as you would any other:</p>
+  {% highlight html %}
+  <button data-win-control="PayPalJS.UI.BuyNow"
+          data-win-options="{ item: { name: 'My Product', id: 'a00001', price: '0.99' } }">
+    Buy Now
+  </button>{% endhighlight %}
+
+  <h5>Syntax</h5>
+  <caption>HTML</caption>
+  {% highlight html %}
+  <button data-win-control="PayPalJS.UI.BuyNow"
+          data-win-options="{ item: {name: 'My Product', id: 'a00001', description: 'My awesome product', price: '0.99', 'type': 'Digital'} }">
+    Buy Now
+  </button>{% endhighlight %}
+
+  <caption>JavaScript</caption>
+  {% highlight javascript %}
+    var buyNow = new PayPalJS.UI.BuyNow(element);
+    buyNow.item = item;{% endhighlight %}
+
+  <h5>Events</h5>
+  <p>Events dispatched by <a href="#ui-buynow">PayPalJS.UI.BuyNow</a> can provide additional data via the <code>event.detail</code> property.<p>
+
+  <table class="listing">
+    <tr>
+      <th><i>Event</i></th>
+      <th><i>Description</i></th>
+      <th><i>event.detail</i></th>
+    </tr>
+    <tr>
+      <td><b>onstart</b></td>
+      <td>Occurs when a transaction has been initiated.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onauth</b></td>
+      <td>Occurs when authorization is triggered (e.g. WAB is displayed).</td>
+      <td>TBD</td>
+    </td>
+    <tr>
+      <td><b>oncancel</b></td>
+      <td>Occurs when a transaction has been canceled by the user.<br>
+      <b>Note:</b> <i>complete</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>oncomplete</b></td>
+      <td>Occurs when a transaction has successfully been completed by the user.<br>
+      <b>Note:</b> <i>cancel</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onerror</b></td>
+      <td>Occurs when a transaction is unable to be completed due to an error.<br>
+      <b>Note:</b> <i>cancel</i> and <i>complete</i> will not fire.</td>
+      <td>Error: message, [status], [code]</td>
+    </tr>
+  </table>
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <td><b>BuyNow(HTMLElement element, [Object options])</b>: BuyNow</td>
+      <td>Initializes a new instance of the BuyNow control.</td>
+    </tr>
+    <tr>
+      <td><b>execute()</b>: undefined</td>
+      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor.</td>
+    </tr>
+    <tr>
+      <td><b>addEventListener(String type, Function handler)</b>: undefined</td>
+      <td>Adds an event listener.<br>
+          <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>dispatchEvent(String type, [Object args])</b>: boolean</td>
+      <td>Raises an event of the specified type and with additional properties. Returns true if preventDefault
+      was called on the event, otherwise returns false.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>removeEventListener(String type, Function handler)</b>: undefined</td>
+      <td>Removes a listener for the specified event.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx</a></td>
+    </tr>
+  </table>
+
+  <h5>Properties</h5>
+  <table class="listing">
+    <tr>
+      <th><i>Name (Type)</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td><b>disabled</b> (bool)</td>
+      <td>Gets or set the disabled state of the control. Disabled if true, enabled if false.</td>
+    </tr>
+    <tr>
+      <td><b>useSandbox</b> (bool)</td>
+      <td>Set to true to use the PayPal <a href="https://developer.paypal.com">Sandbox</a> environment, false to use the live PayPal environment. Defaults to false.</td>
+    </tr>
+    <tr>
+      <td><b>item</b> (PayPal.Checkout.Item)</td>
+      <td>Sets the PayPal.Checkout.Item for the current purchase.</td>
+    </tr>
+  </table>
+
+  <h5>Styling</h5>
+  <table class="listing">
+    <tr>
+      <th><i>CSS Class</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td>paypal-ui-buynow</td>
+      <td>Styles the entire BuyNow control.</td>
+    <tr>
+  </table>
+
+<h5>Code Samples</h5>
+<p>The following code shows how to declaratively instantiate the <a href="#ui-buynow">BuyNow</a> control.</p>
+
+  {% highlight html %}
+  <button id="buyNow1"
+          data-win-control="PayPalJS.UI.BuyNow"
+          data-win-options="{ item: { name: 'My Product', id: 'a00001', price: '0.99', 'type': 'Digital' }}">
+      Buy Now
+  </button>
+  <script type="text/javascript">
+      WinJS.UI.processAll();
+  </script>{% endhighlight %}
+
+  <p>The following code shows how to programatically instantiate a <a href="#ui<code>buy</code>ow">BuyNow</a> control.</p>
+
+
+  {% highlight html %}<button name="buyNow2">Buy Now</button>{% endhighlight %}
+
+
+  {% highlight javascript %}
+    var buyNowElement = document.getElementById('buyNow2');
+
+    // var buyNow = new PayPalJS.UI.BuyNow(buyNowElement,
+    //   { item: { name: 'My Product', id: 'a00001', price: '0.99', 'type': 'Digital' }
+    // });
+    // - or -
+
+    var buyNow = new PayPalJS.UI.BuyNow(buyNowElement);
+    buyNow.addItem(item);
+  {% endhighlight %}
+
+
+  <h4 id="buynow">PayPal.Checkout.BuyNow object</h4>
+  <p>This is the main PayPal checkout API. You can code against this if you have your own UI control or other mechanism to trigger purchases.</p>
+
+  <h5>Syntax</h5>
+  {% highlight javascript %}
+  var buyNow = new PayPal.Checkout.BuyNow("{myMerchantId}");
+  buyNow.addItem(item);
+
+  buyNow.addEventListener('start',    function () {});
+  buyNow.addEventListener('auth',     function () {});
+  buyNow.addEventListener('error',    function () {});
+  buyNow.addEventListener('cancel',   function () {});
+  buyNow.addEventListener('complete', function () {});
+
+  buyNow.execute();
+  {% endhighlight %}
+
+  <h5>Constructor</h5>
+  <table class="listing">
+    <tr>
+      <td style="width:30%;"><b>BuyNow(String merchantId)</b></td>
+      <td>Creates an instance of the BuyNow object for the provided merchantId.</td>
+    </tr>
+  </table>
+
+  <h5>Events</h5>
+  <table class="listing">
+    <tr>
+      <th><i>Event</i></th>
+      <th><i>Description</i></th>
+      <th><i>event.detail</i></th>
+    </tr>
+    <tr>
+      <td><b>onstart</b></td>
+      <td>Occurs when a transaction is initiated.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onauth</b></td>
+      <td>Occurs when an authorization is triggered (e.g. WAB is displayed).</td>
+      <td>TBD</td>
+    </td>
+    <tr>
+      <td><b>oncancel</b></td>
+      <td>Occurs when a user cancels the transaction.<br>
+      <b>Note:</b> <i>complete</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>oncomplete</b></td>
+      <td>Occurs when a user successfully completes a transaction.<br>
+      <b>Note:</b> <i>cancel</i> and <i>error</i> will not fire.</td>
+      <td>TBD</td>
+    </tr>
+    <tr>
+      <td><b>onerror</b></td>
+      <td>Occurs when a transaction is unable to be completed due to an error.<br>
+      <b>Note:</b> <i>cancel</i> and <i>complete</i> will not fire.</td>
+      <td>Error: message, [status], [code]</td>
+    </tr>
+  </table>
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <td><b>execute()</b></td>
+      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor.</td>
+    </tr>
+    <tr>
+      <td><b>addItem(PayPal.Checkout.Item item)</b></td>
+      <td>Adds a PayPal.Checkout.Item to the current purchase.</td>
+    </tr>
+    <tr>
+      <td><b>addEventListener(String type, Function handler)</b></td>
+      <td>Adds an event listener.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>dispatchEvent(String type, [Object args])</b></td>
+      <td>Raises an event of the specified type and with additional properties. Returns true if preventDefault
+      was called on the event, otherwise returns false.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx</a></td>
+    </tr>
+    <tr>
+      <td><b>removeEventListener(String type, Function handler)</b></td>
+      <td>Removes a listener for the specified event.<br>
+      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx</a></td>
+    </tr>
+  </table>
+
+  <h5>Properties</h5>
+  <table class="listing">
+    <tr>
+      <th style="width:30%;"><i>Name (Type)</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td><b>useSandbox</b> (Boolean)</td>
+      <td>Set to true to use the PayPal <a href="https://developer.paypal.com">Sandbox</a> environment, false to use the live PayPal environment. Defaults to false.</td>
+    </tr>
+    <tr>
+      <td><b>merchantId</b> (String)</td>
+      <td>The merchant ID for the current transaction.</td>
+    </tr>
+    <tr>
+      <td><b>displayShipping</b> (Number)</td>
+      <td>(optional, defaults to 0) Indicates how to display shipping options:<br>
+         &nbsp;&nbsp;&nbsp; 0 = Show the shipping address.<br>
+         &nbsp;&nbsp;&nbsp; 1 = Hide the shipping address.<br>
+         &nbsp;&nbsp;&nbsp; 2 = Use the address from the buyers profile if one isn't provided.<br>
+        <br><b>Note:</b> This property is automatically set to 1 for Digital Goods transactions.</td>
+    </tr>
+    <tr>
+      <td><b>confirmedShippingOnly</b> (Boolean)</td>
+      <td>(optional, defaults to false) Set to true if you require the buyer to have a confirmed shipping address.
+        <br><b>Note:</b> This property is automatically set to false for Digital Goods transactions.</td>
+    </tr>
+    <tr>
+      <td><b>currency</b> (String)</td>
+      <td>(optional, defaults to 'USD') Set to the three-character currency code for this purchase.</td>
+    </tr>
+  </table>
+
+
+  <h4 id="item">PayPal.Checkout.Item object</h4>
+  <p>This is an immutable object that describes the item being purchased. It can be created using <a href="#itembuilder">PayPal.Checkout.ItemBuilder</a>.</p>
+
+
+  <h5>Properties</h5>
+  <table class="listing">
+    <tr>
+      <th style="width:30%;"><i>Name (Type)</i></th>
+      <th><i>Description</i></th>
+    </tr>
+    <tr>
+      <td><b>name</b> (String)</td>
+      <td>The name of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>description</b> (String)</td>
+      <td>(optional) The description of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>id</b> (String)</td>
+      <td>(optional) The ID of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>price</b> (String)</td>
+      <td>The price of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>tax</b> (String)</td>
+      <td>(optional) The tax on the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>quantity</b> (Number)</td>
+      <td>(optional, defaults to 1) Quantity of this item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>metadata</b> (Object)</td>
+      <td>(optional) Arbitrary data used to describe the item. (e.g. setting "type" to "Digital" will mark this item as a Digital goods purchase.)</td>
+    </tr>
+  </table>
+
+
+  <h4 id="itembuilder">PayPal.Checkout.ItemBuilder object</h4>
+  <p>This object is a builder used to create item objects.</p>
+
+  <h5>Syntax</h5>
+  {% highlight javascript %}
+  var item = new PayPal.Checkout.ItemBuilder('My product')
+          .id('a0001')
+          .price('0.99')
+          .description('An awesome product')
+          .addMetadata('type', 'Digital')
+          .build();
+  {% endhighlight %}
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <th>Signature</th>
+      <th>Returns</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><b>name(String name)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the name of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>description(String desc)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the description of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>id(String id)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the ID of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>price(String price)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the price of the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>tax(String tax)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the tax on the item to be purchased.</td>
+    </tr>
+    <tr>
+      <td><b>quantity(Number quantity)</b></td>
+      <td>ItemBuilder</td>
+      <td>Sets the quantity of this item to be purchased. Defaults to 1.</td>
+    </tr>
+    <tr>
+      <td><b>addMetadata(String key, String value)</b></td>
+      <td>ItemBuilder</td>
+      <td>Adds arbitrary data relating to the item to be purchased.<br>
+       <b>Note:</b> This mainly aids in normalizing APIs and only specific keys are used.<br>
+       For example, setting "type" to "Digital" marks the item as a Digital Goods item.</td>
+    </tr>
+    <tr>
+      <td><b>build()</b></td>
+      <td>Item</td>
+      <td>Builds a PayPal.Checkout.Item object from the provided configuration options.</td>
+    </tr>
+  </table>
+
+
+  <h4 id="config">PayPalJS.config object</h4>
+  <p>This utility object provides the PayPal namespace with the associated configuration settings.</p>
+
+  <h5>Syntax</h5>
+  {% highlight javascript %}
+  // Set values via 'put'. 'put' returns a Promise for async config situations.
+  PayPay.config.put('mykey', 'myvalue');                       // Primitives
+  PayPalJS.config.put('myobject', {mykey2, 'myvalue2'});       // complex objects
+  PayPalJS.config.put({settingEnabled, true});                 // initialization objects
+  PayPalJS.config.put(new Uri('ms-appx:///mysettings.json'));  // json configuration files
+
+  // Reading values
+  PayPalJS.config.read('mykey');               // 'myvalue'
+  PayPalJS.config.read('myobject').mykey2;     // 'myvalue2'
+  PayPalJS.config.read('settingEnabled');      // true
+
+  // Removing values
+  PayPalJS.config.del('mykey');                // true
+  PayPalJS.config.put('myobject', undefined);  // true
+  PayPalJS.config.del('settingEnabled');       // true
+  {% endhighlight %}
+
+
+  <h5>Methods</h5>
+  <table class="listing">
+    <tr>
+      <th style="width:25%">Signature</th>
+      <th>Returns</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>
+        <b>put(String key, * value)</b><br>
+        <b>put(URI uri)</b><br>
+        <b>put(Object data)</b><br>
+      </td>
+      <td>WinJS.Promise</td>
+      <td>
+        Adds arbitrary values to the PayPal configuration object and returns a Promise.<br>
+        Once the value is added, the complete callback is called with the single argument
+        being the added value.
+      </td>
+    </tr>
+    <tr>
+      <td><b>read(String key)</b></td>
+      <td>*</td>
+      <td>Reads the value out of the configuration object for a given key.</td>
+    </tr>
+    <tr>
+      <td><b>del(String key)</b></td>
+      <td>Boolean</td>
+      <td>Deletes the value out of the configuration object for a given key.</td>
+    </tr>
+  </table>
+
+  <h5>Code Samples</h5>
+  <p>The following code shows different ways to add values to PayPalJS.config. Keep in mind that
+  <code>put</code> is asynchronous; the example below executes the command serially for demonstration purposes only.</p>
+
+  {% highlight javascript %}
+  // Basic key/value
+  PayPalJS.config.put('showDescriptions', true)
+      .then(function complete(showDescriptions) {
+          console.log(showDescriptions); //true
+          // config now contains: showDescriptions
+      });
+
+  // Initialization object
+  PayPalJS.config.put({showDetails: true, title: 'My App'})
+      .then(function complete(data) {
+          console.dir(data); // { "showDetails": true, "title": "My App"}
+          // config now contains: showDescriptions, showDetails, title
+      });
+
+  // Adding objects
+  PayPalJS.config.put('key', { value: 'value1' })
+      .then(function complete(key) {
+          console.dir(key); // { "value" : "value1" }
+          // config now contains: showDescriptions, showDetails, title, key
+      });
+
+  // Removing key/values
+  PayPalJS.config.put('showDescriptions', undefined)
+      .then(function complete(value) {
+          console.log(value); // undefined (key/value was removed if it existed)
+          // config now contains: showDetails, title, key
+      });
+
+  // Initialization via JSON
+  PayPalJS.config.put(new Windows.Foundation.Uri('ms-appx:///paypal-settings.json'))
+      .then(function complete(json) {
+          console.dir(json); // the JSON data read from the provided file
+          // config now contains: showDetails, title, key, and all key/values specified in JSON
+      });
+
+  // Initializing keys as JSON. This adds the contents of the JSON file at the key 'props'
+  PayPalJS.config.put('props', new Windows.Foundation.Uri('ms-appx:///paypal-settings.json'))
+      .then(function complete(props) {
+          console.dir(props); // the JSON data read from the provided file
+          // config now contains: showDetails, title, key, props, and all key/values specified in JSON
+      });
+  {% endhighlight %}
+
+  <p>Reading values out of config is straightforward via the <code>read</code> method:</p>
+
+  {% highlight javascript %}
+  var showDescriptions = PayPalJS.config.read('showDescriptions');
+  console.log(showDescriptions); // undefined (remember, it was deleted in the last example)
+
+  var showDetails = PayPalJS.config.read('showDetails'),
+      title = PayPalJS.config.read('title');
+
+  console.log(showDetails); // true
+  console.log(title);       // "My App"
+
+  var key = PayPalJS.config.read('key');
+  console.dir(key); // { "value" : "value1" }
+  {% endhighlight %}
+
+  <p>Deleting values is also easy via <code>del</code>:</p>
+
+  {% highlight javascript %}
+  PayPalJS.config.del('showDescriptions');  // false (already deleted)
+  PayPalJS.config.del('showDetails');       // true
+  PayPalJS.config.del('title');             // true
+
+  // PayPalJS.config currently supports only top-level keys.
+  // To delete a nested property, you need to get the object and delete it manually.
+  var key = PayPalJS.config.read('key');
+  key.value = undefined;
+  PayPalJS.config.read('key'); // {}
+  {% endhighlight %}
