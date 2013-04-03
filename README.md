@@ -21,10 +21,10 @@ See the following guides for details:
 * Please see the GitHub issue tracker.
 
 ##Release History
-- 20130211 - Version 0.1
-- 20130214 - Version 0.1.1
-- 20130319 - Version 0.1.3
 - 20130403 - Version 0.1.4
+- 20130319 - Version 0.1.3
+- 20130214 - Version 0.1.1
+- 20130211 - Version 0.1
 
 ###Beta Release
 20130403 - Version 0.1.4
