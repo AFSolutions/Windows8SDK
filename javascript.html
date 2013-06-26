@@ -54,24 +54,24 @@ layout: base
     <tr>
       <td><b>onstart</b></td>
       <td>Occurs when a transaction has been initiated.</td>
-      <td>TBD</td>
+      <td>Start</td>
     </tr>
     <tr>
       <td><b>onauth</b></td>
       <td>Occurs when authorization is triggered (e.g. WAB is displayed).</td>
-      <td>TBD</td>
+      <td>Auth: token</td>
     </td>
     <tr>
       <td><b>oncancel</b></td>
       <td>Occurs when a transaction has been canceled by the user.<br>
       <b>Note:</b> <i>complete</i> and <i>error</i> will not fire.</td>
-      <td>TBD</td>
+      <td>Cancel: token</td>
     </tr>
     <tr>
       <td><b>oncomplete</b></td>
       <td>Occurs when a transaction has successfully been completed by the user.<br>
       <b>Note:</b> <i>cancel</i> and <i>error</i> will not fire.</td>
-      <td>TBD</td>
+      <td>Complete: token, transactionId, payerId</td>
     </tr>
     <tr>
       <td><b>onerror</b></td>
@@ -88,8 +88,8 @@ layout: base
       <td>Initializes a new instance of the BuyNow control.</td>
     </tr>
     <tr>
-      <td><b>execute()</b>: undefined</td>
-      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor.</td>
+      <td><b>execute()</b>: boolean</td>
+      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor. Note that is an asynchronous method.</td>
     </tr>
     <tr>
       <td><b>addEventListener(String type, Function handler)</b>: undefined</td>
@@ -160,7 +160,7 @@ layout: base
   {% highlight html %}<button name="buyNow2">Buy Now</button>{% endhighlight %}
 
 
-  {% highlight javascript %}
+  {% highlight javscript %}
     var buyNowElement = document.getElementById('buyNow2');
 
     // var buyNow = new PayPalJS.UI.BuyNow(buyNowElement,
@@ -203,29 +203,29 @@ layout: base
     <tr>
       <th><i>Event</i></th>
       <th><i>Description</i></th>
-      <th><i>event.detail</i></th>
+      <th><i>event</i></th>
     </tr>
     <tr>
       <td><b>onstart</b></td>
       <td>Occurs when a transaction is initiated.</td>
-      <td>TBD</td>
+      <td>Start</td>
     </tr>
     <tr>
       <td><b>onauth</b></td>
       <td>Occurs when an authorization is triggered (e.g. WAB is displayed).</td>
-      <td>TBD</td>
+      <td>Auth: token</td>
     </td>
     <tr>
       <td><b>oncancel</b></td>
       <td>Occurs when a user cancels the transaction.<br>
       <b>Note:</b> <i>complete</i> and <i>error</i> will not fire.</td>
-      <td>TBD</td>
+      <td>Cancel: token</td>
     </tr>
     <tr>
       <td><b>oncomplete</b></td>
       <td>Occurs when a user successfully completes a transaction.<br>
       <b>Note:</b> <i>cancel</i> and <i>error</i> will not fire.</td>
-      <td>TBD</td>
+      <td>Complete: token, transactionId, payerId</td>
     </tr>
     <tr>
       <td><b>onerror</b></td>
@@ -239,27 +239,15 @@ layout: base
   <table class="listing">
     <tr>
       <td><b>execute()</b></td>
-      <td>Initiates a purchase transaction using the configuration provided via the arguments of the options constructor.</td>
+      <td>Initiates a purchase transaction based on the information set on the BuyNow object. Note that is an asynchronous method.</td>
     </tr>
     <tr>
       <td><b>addItem(PayPal.Checkout.Item item)</b></td>
       <td>Adds a PayPal.Checkout.Item to the current purchase.</td>
     </tr>
     <tr>
-      <td><b>addEventListener(String type, Function handler)</b></td>
-      <td>Adds an event listener.<br>
-      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211690.aspx</a></td>
-    </tr>
-    <tr>
-      <td><b>dispatchEvent(String type, [Object args])</b></td>
-      <td>Raises an event of the specified type and with additional properties. Returns true if preventDefault
-      was called on the event, otherwise returns false.<br>
-      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211692.aspx</a></td>
-    </tr>
-    <tr>
-      <td><b>removeEventListener(String type, Function handler)</b></td>
-      <td>Removes a listener for the specified event.<br>
-      <a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx">http://msdn.microsoft.com/en-us/library/windows/apps/br211695.aspx</a></td>
+      <td><b>clearItems()</b></td>
+      <td>Clears all items from the current purchase.</td>
     </tr>
   </table>
 
@@ -286,22 +274,24 @@ layout: base
         <br><b>Note:</b> This property is automatically set to 1 for Digital Goods transactions.</td>
     </tr>
     <tr>
-      <td><b>confirmedShippingOnly</b> (Boolean)</td>
-      <td>(optional, defaults to false) Set to true if you require the buyer to have a confirmed shipping address.
-        <br><b>Note:</b> This property is automatically set to false for Digital Goods transactions.</td>
-    </tr>
-    <tr>
-      <td><b>currency</b> (String)</td>
-      <td>(optional, defaults to 'USD') Set to the three-character currency code for this purchase.</td>
-    </tr>
-    <tr>
-      <td><b>ipn</b> (String)</td>
-      <td>(optional) An <a href="https://www.x.com/developers/paypal/documentation-tools/ipn/integration-guide/IPNIntro">Instant Payment Notification</a> URL
-        to which PayPal should POST purchase information.</td>
-    </tr>
-    <tr>
-      <td><b>custom</b> (String)</td>
-      <td>(optional) An arbitrary custom string value to associate with the current transaction. (NOTE: This field is limited to 256 single-byte alphanumeric characters.)</td>
+	  <td><b>currency</b> (String)</td>
+	  <td>(optional, defaults to 'USD') Set to the three-character ISO-4217 currency code for this purchase. See table 2 in https://developer.paypal.com/webapps/developer/docs/classic/api/currency_codes/ for full list of supported currencies.</td>
+	</tr>
+	<tr>
+	  <td><b>IPN</b> (String)</td>
+	  <td>(optional) An <a href='https://developer.paypal.com/webapps/developer/docs/classic/ipn/gs_IPN/'>Instant Payment Notification</a> URL to which PayPal should POST purchase information.</td>
+	</tr>
+	<tr>
+	  <td><b>custom</b> (String)</td>
+	  <td>(optional) An arbitrary custom string value to associate with the current transaction. (NOTE: This field is limited to 256 single-byte alphanumeric characters.)</td>
+	</tr>
+	<tr>
+	  <td><b>locale</b> (String)</td>
+	  <td>(optional, defaults to 'en_US') Set to the five-character locale code to control the locale of PayPal pages.</td>
+	</tr>
+	<tr>
+	  <td><b>paymentMethod</b> (Paypal.Checkout.PaymentMethod)</td>
+	  <td>(optional, defaults to 'PayPal') Selects which payment flow is rendered by PayPal - the standard PayPal login page or the guest-checkout page for paying using a credit card.</td>
     </tr>
   </table>
 
@@ -313,32 +303,32 @@ layout: base
   <h5>Properties</h5>
   <table class="listing">
     <tr>
-      <th style="width:30%;"><i>Name (Type)</i></th>
+      <th><i>Name (Type)</i></th>
       <th><i>Description</i></th>
     </tr>
     <tr>
       <td><b>name</b> (String)</td>
-      <td>The name of the item to be purchased.</td>
+      <td>The name of the item to be purchased. Should be limited to 127 single-byte characters.</td>
     </tr>
     <tr>
       <td><b>description</b> (String)</td>
-      <td>(optional) The description of the item to be purchased.</td>
+      <td>(optional) The description of the item to be purchased. Should be limited to 127 single-byte characters.</td>
     </tr>
     <tr>
       <td><b>id</b> (String)</td>
-      <td>(optional) The ID of the item to be purchased.</td>
+      <td>(optional) The ID of the item to be purchased. Should be limited to 127 single-byte characters.</td>
     </tr>
     <tr>
       <td><b>price</b> (String)</td>
-      <td>The price of the item to be purchased.</td>
+      <td>The price of the item to be purchased. Must be a positive number with 2 decimal places. The decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</td>
     </tr>
     <tr>
       <td><b>tax</b> (String)</td>
-      <td>(optional) The tax on the item to be purchased.</td>
+      <td>(optional) The tax on the item to be purchased. . Must be a positive number with 2 decimal places. The decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</td>
     </tr>
     <tr>
       <td><b>quantity</b> (Number)</td>
-      <td>(optional, defaults to 1) Quantity of this item to be purchased.</td>
+      <td>(optional, defaults to 1) Quantity of this item to be purchased. Must be a positive integer value.</td>
     </tr>
     <tr>
       <td><b>metadata</b> (Object)</td>
@@ -356,8 +346,7 @@ layout: base
           .id('a0001')
           .price('0.99')
           .description('An awesome product')
-          .addMetadata('type', 'Digital')
-          .build();
+          .addMetadata('type', 'Digital');
   {% endhighlight %}
 
   <h5>Methods</h5>
@@ -418,7 +407,7 @@ layout: base
   <h5>Syntax</h5>
   {% highlight javascript %}
   // Set values via 'put'. 'put' returns a Promise for async config situations.
-  PayPay.config.put('mykey', 'myvalue');                       // Primitives
+  PayPalJS.config.put('mykey', 'myvalue');                       // Primitives
   PayPalJS.config.put('myobject', {mykey2, 'myvalue2'});       // complex objects
   PayPalJS.config.put({settingEnabled, true});                 // initialization objects
   PayPalJS.config.put(new Uri('ms-appx:///mysettings.json'));  // json configuration files
