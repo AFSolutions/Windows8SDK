@@ -15,8 +15,8 @@ You can integrate the PayPal Checkout SDK into your applications using either C#
 
 #### API references
 
-* [SDK Reference for JavaScript](http://paypal.github.com/Windows8SDK/javascript.html)
 * [SDK Reference for C#](http://paypal.github.com/Windows8SDK/csharp.html)
+* [SDK Reference for JavaScript](http://paypal.github.com/Windows8SDK/javascript.html)
 
 ## Samples
 
