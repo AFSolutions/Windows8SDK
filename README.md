@@ -42,8 +42,3 @@ In this initial release, all feature are new.
 
 - Fix issue with incorrect tax calculations.
 - Fix issue [#1] (https://github.com/paypal/Windows8SDK/issues/1) - JS API not correctly passing through currency. This issue also included a server fix.
-
-
-
-
-
